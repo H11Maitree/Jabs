@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
+    <script src="./dist/js/jsvectormap.min.js"></script>
+    <script src="./dist/js/jsvectormap.js"></script>
+    <script src="./dist/maps/world.js"></script>
+    <script src="./logic.js"></script>
+    <script>
+        function setWindowHeight() {
+            var windowHeight = window.innerHeight;
+            document.getElementsByTagName('body')[0].style.height = windowHeight + "px";
+            console.log(document.body.style.height);
+        }
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            jabs = [
+                {
+                    "vac": "xford-AstraZeneca",
+                    "date": 16546047
+                },
+                {
+                    "vac": "Moderna",
+                    "date": 1634604732
+                }
+            ];
+
+            var res = {
+                TH: TH(jabs).status
+            };
+            var text ={
+                'TH': TH(jabs).text
+            }
+
+            console.log('DOM fully loaded and parsed', res);
+            setWindowHeight();
+            var map = new jsVectorMap({
+                map: 'world',
+                selector: '#map',
+                regionStyle: {
+                    // Region style
+                    initial: {
+                        fill: '#e3eaef',
+                        fillOpacity: 1,
+                        stroke: 'none',
+                        strokeWidth: 0,
+                        strokeOpacity: 1
+                    },
+                    hover: {
+                        fillOpacity: .7,
+                        cursor: 'pointer'
+                    },
+                    selected: {
+                        fill: '#000'
+                    },
+                    selectedHover: {}
+                },
+                regionLabelStyle: {
+                    initial: {
+                        fontFamily: 'Verdana',
+                        fontSize: '12',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        fill: '#35373e'
+                    },
+                    hover: {
+                        cursor: 'pointer'
+                    }
+                },
+
+                // -------- Series --------
+                series: {
+                    // markers: [
+                    //     {
+                    //         attribute: "fill",
+                    //         legend: {
+                    //             title: "Something (marker)",
+                    //             // vertical: true,
+                    //         },
+                    //         scale: {
+                    //             "Criteria one": "#ffd400",
+                    //             "Criteria two": "#4761ff"
+                    //         },
+                    //         values: {
+                    //             0: "Criteria one",
+                    //             1: "Criteria two",
+                    //             2: "Criteria two"
+                    //         }
+                    //     },
+                    // ],
+
+                    // ---------- Region series ----------
+                    regions: [
+                        {
+                            attribute: 'fill',
+                            attributes: {
+                                // EG: 'red'
+                            },
+                            legend: {
+                                title: 'Your Jab(s) Status',
+                                vertical: true,
+                            },
+                            scale: {
+                                "Fully Vaccinated": "#4bdc77",
+                                "Non-Fully Vaccinated": "#ff5566",
+                                "No Data": '#e3eaef'
+                            },
+                            values: res
+                            // values: {
+                            //     GB: "Fully Vaccinated",
+                            //     MX: "Non-Fully Vaccinated",
+                                
+                            //     // LY: "Criteria",
+                            // },
+                        },
+                    ]
+                },
+
+                // -------- Events --------
+                onRegionTooltipShow: function (tooltip, code) {
+                    //console.log(text[code]);
+                    if (text[code] != undefined && text[code] !== "") {
+                        //console.log(tooltip);
+                        let country_name = tooltip._tooltip.innerHTML
+                        tooltip._tooltip.innerHTML = country_name + '<br>' + text[code];
+                        //console.log(tooltip._tooltip.innerHTML);
+                        // tooltip.selector.innerHTML = tooltip.innerHTML + ' <b>(Hello Russia)</b>';
+                    }
+                },
+
+            })
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>

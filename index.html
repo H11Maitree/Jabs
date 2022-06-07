@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/css/jsvectormap.css" />
+    <link rel="stylesheet" href="./app.css" />
+    <script src="./dist/js/jsvectormap.min.js"></script>
+    <script src="./dist/js/jsvectormap.js"></script>
+    <script src="./dist/maps/world.js"></script>
+    <script src="./logic.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script>
+        function setWindowHeight() {
+            var windowHeight = window.innerHeight;
+            document.getElementsByTagName('body')[0].style.height = windowHeight + "px";
+            console.log(document.body.style.height);
+        }
+
+        startMap = (jabs) => {
+            // jabs = [
+            //     {
+            //         "vac": "Oxford-AstraZeneca",
+            //         "date": 16546047
+            //     },
+            //     {
+            //         "vac": "Moderna",
+            //         "date": 1634604732
+            //     }
+            // ];
+
+            var res = {
+                TH: TH(jabs).status,
+                US: US(jabs).status,
+                CA: CA(jabs).status
+            };
+            var text = {
+                'TH': TH(jabs).text,
+                'US': US(jabs).text,
+                'CA': CA(jabs).status
+            }
+
+            console.log('DOM fully loaded and parsed', res);
+            setWindowHeight();
+            var map = new jsVectorMap({
+                map: 'world',
+                selector: '#map',
+                regionStyle: {
+                    // Region style
+                    initial: {
+                        fill: '#e3eaef',
+                        fillOpacity: 1,
+                        stroke: 'none',
+                        strokeWidth: 0,
+                        strokeOpacity: 1
+                    },
+                    hover: {
+                        fillOpacity: .7,
+                        cursor: 'pointer'
+                    },
+                    selected: {
+                        fill: '#000'
+                    },
+                    selectedHover: {}
+                },
+                regionLabelStyle: {
+                    initial: {
+                        fontFamily: 'Verdana',
+                        fontSize: '12',
+                        fontWeight: 'bold',
+                        cursor: 'default',
+                        fill: '#35373e'
+                    },
+                    hover: {
+                        cursor: 'pointer'
+                    }
+                },
+
+                // -------- Series --------
+                series: {
+                    // markers: [
+                    //     {
+                    //         attribute: "fill",
+                    //         legend: {
+                    //             title: "Something (marker)",
+                    //             // vertical: true,
+                    //         },
+                    //         scale: {
+                    //             "Criteria one": "#ffd400",
+                    //             "Criteria two": "#4761ff"
+                    //         },
+                    //         values: {
+                    //             0: "Criteria one",
+                    //             1: "Criteria two",
+                    //             2: "Criteria two"
+                    //         }
+                    //     },
+                    // ],
+
+                    // ---------- Region series ----------
+                    regions: [
+                        {
+                            attribute: 'fill',
+                            attributes: {
+                                // EG: 'red'
+                            },
+                            legend: {
+                                title: 'Your Jab(s) Status',
+                                vertical: true,
+                            },
+                            scale: {
+                                "Fully Vaccinated": "#4bdc77",
+                                "Non-Fully Vaccinated": "#ff5566",
+                                "No Data": '#e3eaef'
+                            },
+                            values: res
+                            // values: {
+                            //     GB: "Fully Vaccinated",
+                            //     MX: "Non-Fully Vaccinated",
+
+                            //     // LY: "Criteria",
+                            // },
+                        },
+                    ]
+                },
+
+                // -------- Events --------
+                onRegionTooltipShow: function (tooltip, code) {
+                    //console.log(text[code]);
+                    if (text[code] != undefined && text[code] !== "") {
+                        //console.log(tooltip);
+                        let country_name = tooltip._tooltip.innerHTML
+                        tooltip._tooltip.innerHTML = country_name + '<br>' + text[code];
+                        //console.log(tooltip._tooltip.innerHTML);
+                        // tooltip.selector.innerHTML = tooltip.innerHTML + ' <b>(Hello Russia)</b>';
+                    }
+                },
+
+            })
+
+        };
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            console.log('DOM fully loaded and parsed');
+            setWindowHeight();
+            //startMap();
+        })
+
+        function submit_form(){
+            var jabs=[]
+            var inp_raw =document.querySelectorAll(".cell");
+            inp_raw.forEach(element => {
+                var box = element.querySelector("#vac")
+                console.log(box.options[box.selectedIndex].text);
+
+                var date1 = new Date(element.querySelector("#vacdate").value);
+                const timestamp = date1.getTime()/1000;
+                console.log(timestamp);
+                jabs.push({"vac": box.options[box.selectedIndex].text,
+                    "date": timestamp})
+            });
+            
+            document.getElementById("quesntionare").style.display="None";
+            startMap(jabs);
+        }
+
+    </script>
+</head>
+
+<body>
+    <form id="quesntionare" action="javascript:submit_form();">
+        <button class="btn btn-success btn-sm" style="right: 1rem; margin-left: auto; display: block;" type="submit">Go
+            See</button>
+        <div class="d-grid gap-2 col-12 mx-auto">
+
+            <div id="addable_zone">
+                <div class="input_line col-10 mx-auto cell" style="margin: auto;">
+                    <select required class="form-select" id="vac" required="" style="display: inline; width: 60%;">
+                        <option value="">Choose...</option>
+                        <option value="Oxford-AstraZeneca">Oxford-AstraZeneca</option>
+                        <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+                        <option value="Janssen">Janssen</option>
+                        <option value="Moderna">Moderna</option>
+                        <option value="Sinopharm BIBP">Sinopharm BIBP</option>
+                        <option value="Sputnik V">Sputnik V</option>
+                        <option value="CoronaVac(Sinovac)">CoronaVac(Sinovac)</option>
+                        <option value="Novavax">Novavax</option>
+                        <option value="Covaxin">Covaxin</option>
+                        <option value="Sputnik Light">Sputnik Light</option>
+                        <option value="Convidecia">Convidecia</option>
+                        <option value="Sinopharm WIBP">Sinopharm WIBP</option>
+                        <option value="Abdala">Abdala</option>
+                        <option value="EpiVacCorona">EpiVacCorona</option>
+                        <option value="Zifivax">Zifivax</option>
+                        <option value="Soberana 02">Soberana 02</option>
+                        <option value="CoviVac">CoviVac</option>
+                        <option value="Covaxin">Covaxin</option>
+                        <option value="VLA2001">VLA2001</option>
+                        <option value="QazCovid-in">QazCovid-in</option>
+                        <option value="Minhai">Minhai</option>
+                        <option value="COVIran Barekat">COVIran Barekat</option>
+                        <option value="Chinese Academy of Medical Sciences">Chinese Academy of Medical Sciences</option>
+                        <option value="Medigen">Medigen</option>
+                        <option value="ZyCoV-D">ZyCoV-D</option>
+                        <option value="FAKHRAVAC">FAKHRAVAC</option>
+                        <option value="COVAX-19">COVAX-19</option>
+                        <option value="Razi Cov Pars">Razi Cov Pars</option>
+                        <option value="Turkovac">Turkovac</option>
+                        <option value="Sinopharm CNBG">Sinopharm CNBG</option>
+                        <option value="Corbevax">Corbevax</option>
+                        <option value="Soberana Plus">Soberana Plus</option>
+                        <option value="CoVLP">CoVLP</option>
+                        <option value="Noora">Noora</option>
+                        <option value="Covishield">Covishield</option>
+                        <option value="Covishield">Covovax</option>
+                        <option value="Covishield">Medicago</option>
+                    </select>
+                    <input required type="date" id="vacdate" name="vacdate">
+                    <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
+                </div>
+               
+            </div>
+            <script>
+                addslot = ()=>{
+                    document.getElementById("addable_zone").innerHTML+=`<div class="input_line col-10 mx-auto cell" style="margin: auto;">
+                    <select class="form-select" id="vac" required="" style="display: inline; width: 60%;">
+                        <option value="">Choose...</option>
+                        <option value="Oxford-AstraZeneca">Oxford-AstraZeneca</option>
+                        <option value="Pfizer-BioNTech">Pfizer-BioNTech</option>
+                        <option value="Janssen">Janssen</option>
+                        <option value="Moderna">Moderna</option>
+                        <option value="Sinopharm BIBP">Sinopharm BIBP</option>
+                        <option value="Sputnik V">Sputnik V</option>
+                        <option value="CoronaVac(Sinovac)">CoronaVac(Sinovac)</option>
+                        <option value="Novavax">Novavax</option>
+                        <option value="Covaxin">Covaxin</option>
+                        <option value="Sputnik Light">Sputnik Light</option>
+                        <option value="Convidecia">Convidecia</option>
+                        <option value="Sinopharm WIBP">Sinopharm WIBP</option>
+                        <option value="Abdala">Abdala</option>
+                        <option value="EpiVacCorona">EpiVacCorona</option>
+                        <option value="Zifivax">Zifivax</option>
+                        <option value="Soberana 02">Soberana 02</option>
+                        <option value="CoviVac">CoviVac</option>
+                        <option value="Covaxin">Covaxin</option>
+                        <option value="VLA2001">VLA2001</option>
+                        <option value="QazCovid-in">QazCovid-in</option>
+                        <option value="Minhai">Minhai</option>
+                        <option value="COVIran Barekat">COVIran Barekat</option>
+                        <option value="Chinese Academy of Medical Sciences">Chinese Academy of Medical Sciences</option>
+                        <option value="Medigen">Medigen</option>
+                        <option value="ZyCoV-D">ZyCoV-D</option>
+                        <option value="FAKHRAVAC">FAKHRAVAC</option>
+                        <option value="COVAX-19">COVAX-19</option>
+                        <option value="Razi Cov Pars">Razi Cov Pars</option>
+                        <option value="Turkovac">Turkovac</option>
+                        <option value="Sinopharm CNBG">Sinopharm CNBG</option>
+                        <option value="Corbevax">Corbevax</option>
+                        <option value="Soberana Plus">Soberana Plus</option>
+                        <option value="CoVLP">CoVLP</option>
+                        <option value="Noora">Noora</option>
+                        <option value="Covishield">Covishield</option>
+                        <option value="Covishield">Covovax</option>
+                        <option value="Covishield">Medicago</option>
+                    </select>
+                    <input required type="date" id="vacdate" name="vacdate">
+                    <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
+
+                </div>`
+                }
+            </script>
+            <button class="btn btn-primary btn-sm col-10 mx-auto" type="button" onclick="addslot()">+ Add A Jab</button>
+
+        </form>
+
+
+
+
+
+    </div>
+    <div id="map"></div>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+{
+    "AF":  {
+        "status":"Fully Vaccinated",
+        "text":""
+    },
+    "GB":{
+        "status": "Non-Fully Vaccinated",
+        "text": "You need 3 jabs"
+    },
+    "CA":{
+        "status": "No Data",
+        "text": ""
+    }
+}
