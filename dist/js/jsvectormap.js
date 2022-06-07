@@ -661,6 +661,7 @@
         selector: element,
         handler: handler
       };
+      console.log("uid",uid);
       handler._uid = uid;
       element.addEventListener(event, handler, options);
     },
@@ -907,8 +908,8 @@
       lastTouchesLength = touches.length;
     };
 
-    EventHandler.on('touchstart', handleTouchEvent);
-    EventHandler.on('touchmove', handleTouchEvent);
+    // EventHandler.on('touchstart', handleTouchEvent);
+    // EventHandler.on('touchmove', handleTouchEvent);
   }
 
   /**

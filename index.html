@@ -21,7 +21,7 @@
             console.log(document.body.style.height);
         }
 
-        startMap = (jabs) => {
+         function startMap(jabs){
             // jabs = [
             //     {
             //         "vac": "Oxford-AstraZeneca",
@@ -34,19 +34,19 @@
             // ];
 
             var res = {
-                TH: TH(jabs).status,
-                US: US(jabs).status,
-                CA: CA(jabs).status
+                TH:  TH(jabs).status,
+                US:  US(jabs).status,
+                CA:  CA(jabs).status
             };
             var text = {
-                'TH': TH(jabs).text,
-                'US': US(jabs).text,
-                'CA': CA(jabs).status
+                'TH':  TH(jabs).text,
+                'US':  US(jabs).text,
+                'CA':  CA(jabs).text
             }
 
             console.log('DOM fully loaded and parsed', res);
             setWindowHeight();
-            var map = new jsVectorMap({
+            var map =  new jsVectorMap({
                 map: 'world',
                 selector: '#map',
                 regionStyle: {
