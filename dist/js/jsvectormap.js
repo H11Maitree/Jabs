@@ -908,8 +908,8 @@
       lastTouchesLength = touches.length;
     };
 
-    // EventHandler.on('touchstart', handleTouchEvent);
-    // EventHandler.on('touchmove', handleTouchEvent);
+     EventHandler.on(document.body,'touchstart', handleTouchEvent);
+     EventHandler.on(document.body,'touchmove', handleTouchEvent);
   }
 
   /**
