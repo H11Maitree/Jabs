@@ -53,9 +53,15 @@
                 PT: PT(jabs),
                 EE: EE(jabs),
                 FI: FI(jabs),
+                KR: WHO(jabs),
+                LA: LA(jabs),
+                MM: MM(jabs),
+                KH: KH(jabs),
+                MY: MY(jabs),
             }
             var statuses = {
                 TH: res.TH.status,
+                KR: res.KR.status,
                 US: res.US.status,
                 CA: res.CA.status,
                 AU: res.AU.status,
@@ -81,6 +87,7 @@
                 CZ: "Jab is no longer required",
                 LT: "Jab is no longer required",
                 LV: "Jab is no longer required",
+                VN: "Jab is no longer required",
                 CN: "No Data",
                 RU: "No Data",
                 FR: res.FR.status,
@@ -92,9 +99,14 @@
                 PT: res.PT.status,
                 EE: res.EE.status,
                 FI: res.FI.status,
+                LA: res.LA.status,
+                MM: res.MM.status,
+                KH: res.KH.status,
+                MY: res.MY.status,
             };
             var text = {
                 'TH': res.TH.text,
+                'KR': res.KR.text,
                 'US': res.US.text,
                 'CA': res.CA.text,
                 'AU': res.AU.text,
@@ -108,6 +120,10 @@
                 'PT': res.PT.text,
                 'EE': res.EE.text,
                 'FI': res.FI.text,
+                'LA': res.FI.text,
+                'MM': res.MM.text,
+                'KH': res.KH.text,
+                'MY': res.MY.text,
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -287,6 +303,14 @@
                         <option value="Noora">Noora</option>
                         <option value="Covishield">Covishield</option>
                         <option value="Medicago">Medicago</option>
+                        <option value="Myancopharm">Myancopharm</option>
+                        <option value="CanSinoBio">CanSinoBio</option>
+                        <option value="SANOFI">SANOFI</option>
+                        <option value="Clover Bio-B">Clover Bio-B</option>
+                        <option value="CUREVAC">CUREVAC</option>
+                        <option value="EpiVacCorona">EpiVacCorona</option>
+                        <option value="IMBCAMS">IMBCAMS</option>
+                        <option value="BioCubaFarma(Soberana)">BioCubaFarma(Soberana)</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;"
@@ -347,6 +371,14 @@
                         <option value="Noora">Noora</option>
                         <option value="Covishield">Covishield</option>
                         <option value="Medicago">Medicago</option>
+                        <option value="Myancopharm">Myancopharm</option>
+                        <option value="CanSinoBio">CanSinoBio</option>
+                        <option value="SANOFI">SANOFI</option>
+                        <option value="Clover Bio-B">Clover Bio-B</option>
+                        <option value="CUREVAC">CUREVAC</option>
+                        <option value="EpiVacCorona">EpiVacCorona</option>
+                        <option value="IMBCAMS">IMBCAMS</option>
+                        <option value="BioCubaFarma(Soberana)">BioCubaFarma(Soberana)</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
