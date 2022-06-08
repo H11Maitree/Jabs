@@ -21,7 +21,7 @@
             console.log(document.body.style.height);
         }
 
-         function startMap(jabs){
+        function startMap(jabs) {
             // jabs = [
             //     {
             //         "vac": "Oxford-AstraZeneca",
@@ -33,20 +33,30 @@
             //     }
             // ];
 
+            jabs.sort(function (a, b) {
+                return a["date"] - b["date"];
+            });
+            //console.log(jabs);
+
             var res = {
-                TH:  TH(jabs).status,
-                US:  US(jabs).status,
-                CA:  CA(jabs).status
+                TH: TH(jabs),
+                US: US(jabs),
+                CA: CA(jabs)
+            }
+            var statuses = {
+                TH: res.TH.status,
+                US: res.US.status,
+                CA: res.CA.status
             };
             var text = {
-                'TH':  TH(jabs).text,
-                'US':  US(jabs).text,
-                'CA':  CA(jabs).text
+                'TH': res.TH.text,
+                'US': res.US.text,
+                'CA': res.CA.text
             }
 
             console.log('DOM fully loaded and parsed', res);
             setWindowHeight();
-            var map =  new jsVectorMap({
+            var map = new jsVectorMap({
                 map: 'world',
                 selector: '#map',
                 regionStyle: {
@@ -117,7 +127,7 @@
                                 "Non-Fully Vaccinated": "#ff5566",
                                 "No Data": '#e3eaef'
                             },
-                            values: res
+                            values: statuses
                             // values: {
                             //     GB: "Fully Vaccinated",
                             //     MX: "Non-Fully Vaccinated",
@@ -151,21 +161,23 @@
             //startMap();
         })
 
-        function submit_form(){
-            var jabs=[]
-            var inp_raw =document.querySelectorAll(".cell");
+        function submit_form() {
+            var jabs = []
+            var inp_raw = document.querySelectorAll(".cell");
             inp_raw.forEach(element => {
                 var box = element.querySelector("#vac")
-                console.log(box.options[box.selectedIndex].text);
+                //console.log(box.options[box.selectedIndex].text);
 
                 var date1 = new Date(element.querySelector("#vacdate").value);
-                const timestamp = date1.getTime()/1000;
-                console.log(timestamp);
-                jabs.push({"vac": box.options[box.selectedIndex].text,
-                    "date": timestamp})
+                const timestamp = date1.getTime() / 1000;
+                //console.log(timestamp);
+                jabs.push({
+                    "vac": box.options[box.selectedIndex].text,
+                    "date": timestamp
+                })
             });
-            
-            document.getElementById("quesntionare").style.display="None";
+
+            document.getElementById("quesntionare").style.display = "None";
             startMap(jabs);
         }
 
@@ -221,13 +233,26 @@
                         <option value="Covishield">Medicago</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
-                    <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
+                    <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;"
+                        onclick="return this.parentNode.remove();">-</button>
                 </div>
-               
+
             </div>
             <script>
-                addslot = ()=>{
-                    document.getElementById("addable_zone").innerHTML+=`<div class="input_line col-10 mx-auto cell" style="margin: auto;">
+                addslot = () => {
+                    var jabs = []
+                    var inp_raw = document.querySelectorAll(".cell");
+                    inp_raw.forEach(element => {
+                        var box = element.querySelector("#vac")
+                        //console.log(box.options[box.selectedIndex].text);
+
+                        jabs.push({
+                            "vac": box.selectedIndex,
+                            "date": element.querySelector("#vacdate").value
+                        })
+                    });
+                    //console.log(jabs);
+                    document.getElementById("addable_zone").innerHTML += `<div class="input_line col-10 mx-auto cell" style="margin: auto;">
                     <select class="form-select" id="vac" required="" style="display: inline; width: 60%;">
                         <option value="">Choose...</option>
                         <option value="Oxford-AstraZeneca">Oxford-AstraZeneca</option>
@@ -272,11 +297,21 @@
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
 
                 </div>`
+
+                inp_raw = document.querySelectorAll(".cell");
+                var c = 0;
+                    jabs.forEach(element => {
+                        //console.log(inp_raw[c],element["vac"],inp_raw[c].querySelector("#vac").selectedIndex,inp_raw[c].querySelector("#vacdate").value);
+                        inp_raw[c].querySelector("#vac").selectedIndex = element["vac"];
+                        inp_raw[c].querySelector("#vacdate").value = element["date"];
+                        c++;
+                    });
+
                 }
             </script>
             <button class="btn btn-primary btn-sm col-10 mx-auto" type="button" onclick="addslot()">+ Add A Jab</button>
 
-        </form>
+    </form>
 
 
 
