@@ -36,7 +36,7 @@
             jabs.sort(function (a, b) {
                 return a["date"] - b["date"];
             });
-            //console.log(jabs);
+            console.log(jabs);
 
             var res = {
                 TH: TH(jabs),
@@ -45,6 +45,8 @@
                 AU: AU(jabs),
                 JP: JP(jabs),
                 FR: FR(jabs),
+                IN: IN(jabs),
+                BR: BR(jabs),
             }
             var statuses = {
                 TH: res.TH.status,
@@ -53,7 +55,13 @@
                 AU: res.AU.status,
                 JP: res.JP.status,
                 GL: "Jab no longer required",
+                MX: "Jab no longer required",
+                GB: "Jab no longer required",
+                CN: "No Data",
+                RU: "No Data",
                 FR: res.FR.status,
+                IN: res.IN.status,
+                BR: res.BR.status,
             };
             var text = {
                 'TH': res.TH.text,
@@ -61,7 +69,9 @@
                 'CA': res.CA.text,
                 'AU': res.AU.text,
                 'JP': res.JP.text,
-                'FR': res.FR.text
+                'FR': res.FR.text,
+                'IN': res.IN.text,
+                'BR': res.BR.text,
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -135,7 +145,7 @@
                             scale: {
                                 "Fully Vaccinated": "#4bdc77",
                                 "Non-Fully Vaccinated": "#ff5566",
-                                "No Data": '#e3eaef',
+                                "No Data": '#f3f2f1',
                                 "Jab no longer required":"#1d70b8"
                             },
                             values: statuses
