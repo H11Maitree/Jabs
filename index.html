@@ -42,19 +42,26 @@
                 TH: TH(jabs),
                 US: US(jabs),
                 CA: CA(jabs),
-                AU: AU(jabs)
+                AU: AU(jabs),
+                JP: JP(jabs),
+                FR: FR(jabs),
             }
             var statuses = {
                 TH: res.TH.status,
                 US: res.US.status,
                 CA: res.CA.status,
                 AU: res.AU.status,
+                JP: res.JP.status,
+                GL: "Jab no longer required",
+                FR: res.FR.status,
             };
             var text = {
                 'TH': res.TH.text,
                 'US': res.US.text,
                 'CA': res.CA.text,
-                'AU': res.AU.text
+                'AU': res.AU.text,
+                'JP': res.JP.text,
+                'FR': res.FR.text
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -128,7 +135,8 @@
                             scale: {
                                 "Fully Vaccinated": "#4bdc77",
                                 "Non-Fully Vaccinated": "#ff5566",
-                                "No Data": '#e3eaef'
+                                "No Data": '#e3eaef',
+                                "Jab no longer required":"#1d70b8"
                             },
                             values: statuses
                             // values: {
@@ -204,7 +212,7 @@
                         <option value="Sinopharm BIBP">Sinopharm BIBP</option>
                         <option value="Sputnik V">Sputnik V</option>
                         <option value="CoronaVac(Sinovac)">CoronaVac(Sinovac)</option>
-                        <option value="Novavax">Novavax</option>
+                        <option value="Novavax(Covovax)">Novavax(Covovax)</option>
                         <option value="Covaxin">Covaxin</option>
                         <option value="Sputnik Light">Sputnik Light</option>
                         <option value="Convidecia">Convidecia</option>
@@ -232,8 +240,7 @@
                         <option value="CoVLP">CoVLP</option>
                         <option value="Noora">Noora</option>
                         <option value="Covishield">Covishield</option>
-                        <option value="Covishield">Covovax</option>
-                        <option value="Covishield">Medicago</option>
+                        <option value="Medicago">Medicago</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;"
@@ -265,7 +272,7 @@
                         <option value="Sinopharm BIBP">Sinopharm BIBP</option>
                         <option value="Sputnik V">Sputnik V</option>
                         <option value="CoronaVac(Sinovac)">CoronaVac(Sinovac)</option>
-                        <option value="Novavax">Novavax</option>
+                        <option value="Novavax(Covovax)">Novavax(Covovax)</option>
                         <option value="Covaxin">Covaxin</option>
                         <option value="Sputnik Light">Sputnik Light</option>
                         <option value="Convidecia">Convidecia</option>
@@ -293,8 +300,7 @@
                         <option value="CoVLP">CoVLP</option>
                         <option value="Noora">Noora</option>
                         <option value="Covishield">Covishield</option>
-                        <option value="Covishield">Covovax</option>
-                        <option value="Covishield">Medicago</option>
+                        <option value="Medicago">Medicago</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
