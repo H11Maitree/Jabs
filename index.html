@@ -47,6 +47,12 @@
                 FR: FR(jabs),
                 IN: IN(jabs),
                 BR: BR(jabs),
+                DE: DE(jabs),
+                ES: ES(jabs),
+                NL: NL(jabs),
+                PT: PT(jabs),
+                EE: EE(jabs),
+                FI: FI(jabs),
             }
             var statuses = {
                 TH: res.TH.status,
@@ -54,14 +60,38 @@
                 CA: res.CA.status,
                 AU: res.AU.status,
                 JP: res.JP.status,
-                GL: "Jab no longer required",
-                MX: "Jab no longer required",
-                GB: "Jab no longer required",
+                GL: "Jab is no longer required",
+                MX: "Jab is no longer required",
+                GB: "Jab is no longer required",
+                IT: "Jab is no longer required",
+                IE: "Jab is no longer required",
+                NO: "Jab is no longer required",
+                BE: "Jab is no longer required",
+                DK: "Jab is no longer required",
+                SE: "Jab is no longer required",
+                CH: "Jab is no longer required",
+                AT: "Jab is no longer required",
+                SI: "Jab is no longer required",
+                HR: "Jab is no longer required",
+                GR: "Jab is no longer required",
+                HU: "Jab is no longer required",
+                PL: "Jab is no longer required",
+                SK: "Jab is no longer required",
+                RO: "Jab is no longer required",
+                CZ: "Jab is no longer required",
+                LT: "Jab is no longer required",
+                LV: "Jab is no longer required",
                 CN: "No Data",
                 RU: "No Data",
                 FR: res.FR.status,
                 IN: res.IN.status,
                 BR: res.BR.status,
+                DE: res.DE.status,
+                ES: res.ES.status,
+                NL: res.NL.status,
+                PT: res.PT.status,
+                EE: res.EE.status,
+                FI: res.FI.status,
             };
             var text = {
                 'TH': res.TH.text,
@@ -72,6 +102,12 @@
                 'FR': res.FR.text,
                 'IN': res.IN.text,
                 'BR': res.BR.text,
+                'DE': res.DE.text,
+                'ES': res.ES.text,
+                'NL': res.NL.text,
+                'PT': res.PT.text,
+                'EE': res.EE.text,
+                'FI': res.FI.text,
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -146,7 +182,7 @@
                                 "Fully Vaccinated": "#4bdc77",
                                 "Non-Fully Vaccinated": "#ff5566",
                                 "No Data": '#f3f2f1',
-                                "Jab no longer required":"#1d70b8"
+                                "Jab is no longer required":"#1d70b8"
                             },
                             values: statuses
                             // values: {
