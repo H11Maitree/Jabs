@@ -58,7 +58,7 @@ function US(jabs) {
         }
         else if(["Pfizer-BioNTech","Moderna","Oxford-AstraZeneca","Covaxin","Covishield","Sinopharm BIBP","CoronaVac(Sinovac)","Novavax","Covovax","Medicago"].includes(jabs[i]["vac"])){
             for (let j = jabs.length - 1; j > i; j--) {
-                if(["Pfizer-BioNTech","Moderna","Oxford-AstraZeneca","Covaxin","Covishield","Sinopharm BIBP","CoronaVac(Sinovac)","Novavax","Covovax","Medicago","Convidecia","Janssen"].includes(jabs[j]["vac"]) && jabs[j]["date"] <= Math.floor(Date.now() / 1000) - 1209600 && (jabs[i]["vac"] == jabs[j]["vac"]) || (jabs[j]["date"] - jabs[i]["date"] > 17*86400)){
+                if(["Pfizer-BioNTech","Moderna","Oxford-AstraZeneca","Covaxin","Covishield","Sinopharm BIBP","CoronaVac(Sinovac)","Novavax","Covovax","Medicago","Convidecia","Janssen"].includes(jabs[j]["vac"]) && jabs[j]["date"] <= Math.floor(Date.now() / 1000) - 1209600 && (jabs[i]["vac"] == jabs[j]["vac"] || jabs[j]["date"] - jabs[i]["date"] > 17*86400)){
                     return {
                         "status": "Fully Vaccinated",
                         "text": ""
@@ -86,6 +86,36 @@ function CA(jabs) {
         else if(["Oxford-AstraZeneca","Covaxin","Medicago","Moderna","Novavax","Pfizer-BioNTech","Sinopharm BIBP","CoronaVac(Sinovac)"].includes(jabs[i]["vac"])){
             for (let j = jabs.length - 1; j > i; j--) {
                 if(["Oxford-AstraZeneca","Covaxin","Medicago","Moderna","Novavax","Pfizer-BioNTech","Sinopharm BIBP","CoronaVac(Sinovac)","Janssen"].includes(jabs[j]["vac"]) && jabs[j]["date"] <= Math.floor(Date.now() / 1000) - 1209600 ){
+                    return {
+                        "status": "Fully Vaccinated",
+                        "text": ""
+                    };
+                }
+            }
+        }
+
+    }
+    return {
+        "status": "Non-Fully Vaccinated",
+        "text": "You need 2/1 recognized jabs"
+    };
+
+}
+
+function AU(jabs) {
+    for (let i = 0; i < jabs.length; i++) {
+        //console.log(jabs[i]["vac"], ["CoronaVac(Sinovac)", "Oxford-AstraZeneca", "Pfizer-BioNTech", "Moderna", "Sinopharm BIBP", "Sputnik V", "Covaxin", "Novavax", "Medigen", "Turkovac", "Sputnik Light", "Janssen"].includes(jabs[i]["vac"]));
+        if ((jabs[i]["vac"] == "Janssen" )&&jabs[i]["date"] < Math.floor(Date.now() / 1000) - 7*86400) {
+            return {
+                "status": "Fully Vaccinated",
+                "text": ""
+            };
+        }
+        else if (["Oxford-AstraZeneca","Covishield","Pfizer-BioNTech","Moderna","CoronaVac(Sinovac)","Covaxin","Sputnik V","Novavax","Sinopharm BIBP"].includes(jabs[i]["vac"])) {
+            
+            for (let j = jabs.length - 1; j > i; j--) {
+                //console.log("Here", j, ["CoronaVac(Sinovac)", "Oxford-AstraZeneca", "Pfizer-BioNTech", "Moderna", "Sinopharm BIBP", "Sputnik V", "Covaxin", "Novavax", "Medigen", "Turkovac", "Sputnik Light", "Janssen"].includes(jabs[j]["vac"]),jabs[j]["date"] - jabs[i]["date"] > min_interval * 604800, jabs[j]["date"] <= Math.floor(Date.now() / 1000) - 1209600, jabs[j]["date"], Math.floor(Date.now() / 1000) - 1209600);
+                if (["Oxford-AstraZeneca","Covishield","Pfizer-BioNTech","Moderna","CoronaVac(Sinovac)","Covaxin","Sputnik V","Novavax","Sinopharm BIBP","Janssen"].includes(jabs[j]["vac"]) && jabs[j]["date"] - jabs[i]["date"] > 14*86400 && jabs[j]["date"] <= Math.floor(Date.now() / 1000) - 7*86400) {
                     return {
                         "status": "Fully Vaccinated",
                         "text": ""

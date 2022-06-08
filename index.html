@@ -41,17 +41,20 @@
             var res = {
                 TH: TH(jabs),
                 US: US(jabs),
-                CA: CA(jabs)
+                CA: CA(jabs),
+                AU: AU(jabs)
             }
             var statuses = {
                 TH: res.TH.status,
                 US: res.US.status,
-                CA: res.CA.status
+                CA: res.CA.status,
+                AU: res.AU.status,
             };
             var text = {
                 'TH': res.TH.text,
                 'US': res.US.text,
-                'CA': res.CA.text
+                'CA': res.CA.text,
+                'AU': res.AU.text
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -141,8 +144,8 @@
                 // -------- Events --------
                 onRegionTooltipShow: function (tooltip, code) {
                     //console.log(text[code]);
+                    console.log(tooltip._tooltip.innerHTML,code);
                     if (text[code] != undefined && text[code] !== "") {
-                        //console.log(tooltip);
                         let country_name = tooltip._tooltip.innerHTML
                         tooltip._tooltip.innerHTML = country_name + '<br>' + text[code];
                         //console.log(tooltip._tooltip.innerHTML);
