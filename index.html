@@ -58,6 +58,9 @@
                 MM: MM(jabs),
                 KH: KH(jabs),
                 MY: MY(jabs),
+                ID: ID(jabs),
+                PH: PH(jabs),
+                NZ: NZ(jabs),
             }
             var statuses = {
                 TH: res.TH.status,
@@ -103,6 +106,10 @@
                 MM: res.MM.status,
                 KH: res.KH.status,
                 MY: res.MY.status,
+                ID: res.ID.status,
+                PH: res.PH.status,
+                NZ: res.NZ.status,
+                SD:"Jab is no longer required",
             };
             var text = {
                 'TH': res.TH.text,
@@ -124,6 +131,10 @@
                 'MM': res.MM.text,
                 'KH': res.KH.text,
                 'MY': res.MY.text,
+                'ID': res.ID.text,
+                'PH': res.PH.text,
+                'NZ': res.NZ.text,
+                'SD': "Entry requirements for Sudan are the same for all travellers,<br> regardless of COVID-19 vaccination status.",
             }
 
             console.log('DOM fully loaded and parsed', res);
@@ -311,6 +322,13 @@
                         <option value="EpiVacCorona">EpiVacCorona</option>
                         <option value="IMBCAMS">IMBCAMS</option>
                         <option value="BioCubaFarma(Soberana)">BioCubaFarma(Soberana)</option>
+                        <option value="KCONVAC">KCONVAC</option>
+                        <option value="KoviVac">KoviVac</option>
+                        <option value="Tukovac">Tukovac</option>
+                        <option value="QazVac">QazVac</option>
+                        <option value="MVC-COV19">MVC-COV19</option>
+                        <option value="Rasi Cov Pars">Rasi Cov Pars</option>
+                        <option value="CHO Cell">CHO Cell</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;"
@@ -379,6 +397,13 @@
                         <option value="EpiVacCorona">EpiVacCorona</option>
                         <option value="IMBCAMS">IMBCAMS</option>
                         <option value="BioCubaFarma(Soberana)">BioCubaFarma(Soberana)</option>
+                        <option value="KCONVAC">KCONVAC</option>
+                        <option value="KoviVac">KoviVac</option>
+                        <option value="Tukovac">Tukovac</option>
+                        <option value="QazVac">QazVac</option>
+                        <option value="MVC-COV19">MVC-COV19</option>
+                        <option value="Rasi Cov Pars">Rasi Cov Pars</option>
+                        <option value="CHO Cell">CHO Cell</option>
                     </select>
                     <input required type="date" id="vacdate" name="vacdate">
                     <button class="btn btn-danger btn-sm" type="button" style="display: inline-block;" onclick="return this.parentNode.remove();">-</button>
