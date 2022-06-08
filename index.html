@@ -54,6 +54,7 @@
                 EE: EE(jabs),
                 FI: FI(jabs),
                 KR: WHO(jabs),
+                ZA: WHO(jabs),
                 LA: LA(jabs),
                 MM: MM(jabs),
                 KH: KH(jabs),
@@ -110,6 +111,8 @@
                 PH: res.PH.status,
                 NZ: res.NZ.status,
                 SD:"Jab is no longer required",
+                AR:"Jab is no longer required",
+                ZA: res.ZA.status,
             };
             var text = {
                 'TH': res.TH.text,
@@ -135,6 +138,8 @@
                 'PH': res.PH.text,
                 'NZ': res.NZ.text,
                 'SD': "Entry requirements for Sudan are the same for all travellers,<br> regardless of COVID-19 vaccination status.",
+                'AR': "COVID-19 testing is recommended for those travellers who are not vaccinated.<br>Whether you have received a complete course of a vaccine or not,<br> will be determined by the authorities of the country where you received your vaccine.",
+                'ZA': res.ZA.text,
             }
 
             console.log('DOM fully loaded and parsed', res);
